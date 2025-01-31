@@ -18,6 +18,7 @@ int lab1_main(void)
     assert(GPIOC->OTYPER == 0x0); // check value for OTYPER
     assert(GPIOC->OSPEEDR == 0x00); // Check value for OSPEEDR 
     assert(GPIOC->PUPDR == 0x00);
+    assert(GPIOC->ODR == 0x00);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET); // Start PC8 high
     while (1) 
     {
