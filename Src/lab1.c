@@ -1,4 +1,5 @@
 #include <stm32f0xx_hal.h>
+#include <assert.h>
 int lab1_main(void) 
 {
     HAL_Init(); // Reset of all peripherals, init the Flash and Systick
@@ -13,6 +14,11 @@ int lab1_main(void)
     GPIO_SPEED_FREQ_LOW,
     GPIO_NOPULL};
     HAL_GPIO_Init(GPIOC, &initStr); // Initialize pins PC8 & PC9
+    assert(GPIOC->MODER == 0x50000); // check if GPIOC->MODER is set to 0
+    assert(GPIOC->OTYPER == 0x0); // check value for OTYPER
+    assert(GPIOC->OSPEEDR == 0x00); // Check value for OSPEEDR 
+ 
+
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET); // Start PC8 high
     while (1) 
     {
