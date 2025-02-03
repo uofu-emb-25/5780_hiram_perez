@@ -18,8 +18,28 @@ void My_HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 
     GPIOx->PUPDR &= ~(0x1 << 6);
     GPIOx->PUPDR &= ~(0x1 << 7);
-}
 
+    GPIOx->MODER &= ~((1<<0) | (1<<1) | (1<<2) | (1<<3));
+
+    GPIOx->OSPEEDR &= ~(0x1 << 0);
+    GPIOx->OSPEEDR &= ~(0x1 << 1);
+
+    GPIOx->PUPDR &= ~(0x1 << 6);
+    GPIOx->PUPDR &= ~(0x1 << 7);
+
+
+    GPIOA->MODER &= ~(0x1 << 0);
+    GPIOA->MODER &= ~(0x1 << 1);
+
+    GPIOA->OSPEEDR &= ~(0x1 << 0);
+    GPIOA->OSPEEDR &= ~(0x1 << 1);
+
+
+    GPIOA->PUPDR &= ~(0x1 << 0);
+    GPIOA->PUPDR &= ~(0x1 << 1);
+
+    GPIOA->PUPDR |= (0x1 << 1);
+}
 
 /*
 void My_HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
@@ -27,13 +47,17 @@ void My_HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 }
 */
 
-/*
 GPIO_PinState My_HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
-    return -1;
+    if(GPIOx->IDR & 1)
+    {
+        return GPIO_PIN_SET;
+    }
+    else
+    {
+        return GPIO_PIN_RESET;
+    }
 }
-*/
-
 
 void My_HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState)
 {
@@ -44,15 +68,13 @@ void My_HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState 
     else
     {
         GPIOx->ODR &= ~GPIO_Pin; // Clear PIN
+
     }
 
 }
 
-
-
 void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
-    GPIOx->ODR ^= GPIO_Pin; // Clear PIN
+    GPIOx->ODR ^= GPIO_Pin; // Clear PIN 8
    
 }
-

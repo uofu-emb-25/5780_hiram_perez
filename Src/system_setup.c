@@ -1,9 +1,14 @@
 #include "main.h"
 #include <stm32f0xx_hal.h>
 
-void My_HAL_RCC_GPIOC_CLK_ENABLE(void)
+void My__HAL_RCC_GPIOC_CLK_ENABLE(void)
 {
   RCC-> AHBENR |= RCC_AHBENR_GPIOCEN;
+}
+
+void My__HAL_RCC_GPIOA_CLK_ENABLE(void)
+{
+  RCC-> AHBENR |= RCC_AHBENR_GPIOAEN;
 }
 
 /**
