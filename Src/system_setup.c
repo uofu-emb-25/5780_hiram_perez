@@ -1,6 +1,16 @@
 #include "main.h"
 #include <stm32f0xx_hal.h>
 
+void My__HAL_RCC_GPIOC_CLK_ENABLE(void)
+{
+  RCC-> AHBENR |= RCC_AHBENR_GPIOCEN;
+}
+
+void My__HAL_RCC_GPIOA_CLK_ENABLE(void)
+{
+  RCC-> AHBENR |= RCC_AHBENR_GPIOAEN;
+}
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
