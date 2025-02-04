@@ -41,6 +41,18 @@ void My_HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
     GPIOA->PUPDR |= (0x1 << 1);
 }
 
+void My_HAL_GPIO_InitAll(void)
+{
+    GPIOC->MODER &= ~((0x1 << 12) | (0x1 << 13) | (0x1 << 14) | (0x1 << 15) | (0x1 << 16) | (0x1 << 17) | (0x1 << 18) | (0x1 << 19)); // Clear PC6-9
+    GPIOC->MODER |= ((0x1 << 12) | (0x1 << 14) | (0x1 << 16)| (0x1 << 18)); // Set PC6-9 to output mode
+
+    GPIOC->OTYPER &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Set PC6-9 to Push-Pull
+
+    GPIOC->OSPEEDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9));  // Set PC6-9 to Low-speed
+
+    GPIOC->PUPDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Ser PC6-9's to no Pull-up, Pull-down
+}
+
 /*
 void My_HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
