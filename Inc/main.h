@@ -11,3 +11,4 @@ int lab6_main(void);
 int lab7_main(void);
 void My_HAL_RCC_GPIOC_CLK_ENABLE();
 void My_HAL_RCC_GPIOA_CLK_ENABLE();
+void EXTI_SETUP();

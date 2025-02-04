@@ -53,6 +53,17 @@ void My_HAL_GPIO_InitAll(void)
     GPIOC->PUPDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Ser PC6-9's to no Pull-up, Pull-down
 }
 
+void My_HAL_GPIO_Init_PA0(void)
+{
+    GPIOA->MODER &= ~((0x1 << 0) | (0x1 << 1));// Set to input mode
+
+    GPIOA->OSPEEDR &= ~(0x1 << 0); // Set to low-speed
+
+    GPIOA->PUPDR &= ~((0x1 << 0) | (0x1 << 1)); // Clear PA0 PUPDR
+
+    GPIOA->PUPDR |= (0x1 << 1); // Set pull down resistor
+}
+
 /*
 void My_HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 {
@@ -89,4 +100,13 @@ void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
     GPIOx->ODR ^= GPIO_Pin; // Clear PIN 8
    
+}
+
+void EXTI_SETUP(void)
+{
+
+    EXTI->IMR |= 0x1;
+    EXTI->RTSR |= 0x1;
+    RCC->APB2ENR |= 0x1;
+    SYSCFG->EXTICR[0] &= 0x0;
 }

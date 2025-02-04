@@ -13,9 +13,15 @@ int lab2_main(void)
     My_HAL_GPIO_InitAll(); // Initialize pins PC6, PC7, PC8 & PC9
     My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET); // Start PC9 high
 
+    My_HAL_GPIO_Init_PA0();
+    assert(EXTI->IMR == 0x7F840000);
+    assert(SYSCFG->EXTICR[0] == 0x0);
+    EXTI_SETUP();
+    assert(EXTI->IMR == 0x7F840001);
+    assert(SYSCFG->EXTICR[0] == 0x0);
     while(1) 
     {
-        HAL_Delay(500); // Delay 200ms
+        HAL_Delay(500); // Delay 500ms
         // Toggle the output state of PC6
         HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
     }
