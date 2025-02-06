@@ -14,8 +14,13 @@ void EXTI_SETUP(void)
 void EXTI0_1_IRQHandler(void)
 {
     My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
+    volatile int counter = 0;
+    while(counter < 1500000)
+    {
+        counter ++;
+    }
+    My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
     EXTI->PR = EXTI_PR_PR0;
-    //EXTI->PR |= 0x1;
 }
 
 int lab2_main(void) 
@@ -41,7 +46,6 @@ int lab2_main(void)
     NVIC_SetPriority(EXTI0_1_IRQn, 1); // Set priority for EXTI0_1 to 1
     while(1) 
     {
-
         HAL_Delay(500); // Delay 500ms
         // Toggle the output state of PC6
         HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
