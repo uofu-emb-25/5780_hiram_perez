@@ -101,12 +101,3 @@ void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
     GPIOx->ODR ^= GPIO_Pin; // Clear PIN 8
    
 }
-
-void EXTI_SETUP(void)
-{
-
-    EXTI->IMR |= 0x1;
-    EXTI->RTSR |= 0x1;
-    RCC->APB2ENR |= 0x1;
-    SYSCFG->EXTICR[0] &= 0x0;
-}

@@ -1,5 +1,23 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
+
+void EXTI_SETUP(void)
+{
+
+    EXTI->IMR |= 0x1;
+    EXTI->RTSR |= 0x1;
+    RCC->APB2ENR |= 0x1;
+    SYSCFG->EXTICR[0] &= 0x0;
+}
+
+
+void EXTI0_1_IRQHandler(void)
+{
+    My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
+    EXTI->PR = EXTI_PR_PR0;
+    //EXTI->PR |= 0x1;
+}
+
 int lab2_main(void) 
 {
     HAL_Init(); // Reset of all peripherals, init the Flash and Systick
@@ -19,8 +37,11 @@ int lab2_main(void)
     EXTI_SETUP();
     assert(EXTI->IMR == 0x7F840001);
     assert(SYSCFG->EXTICR[0] == 0x0);
+    NVIC_EnableIRQ(EXTI0_1_IRQn); // Enable  interrupt on EXTI0_1
+    NVIC_SetPriority(EXTI0_1_IRQn, 1); // Set priority for EXTI0_1 to 1
     while(1) 
     {
+
         HAL_Delay(500); // Delay 500ms
         // Toggle the output state of PC6
         HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_6);
