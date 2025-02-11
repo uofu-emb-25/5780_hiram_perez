@@ -6,12 +6,12 @@
 void TIM2_IRQHandler(void)
 {
     My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
-    TIM2->SR &= (0x1 << 0);
+    TIM2->SR = 0;
 }
 int lab3_main(void) 
 {
     HAL_Init(); // Reset of all peripherals, init the Flash and Systick
-    SystemClock_Config(); //Configure the system clock
+    //SystemClock_Config(); //Configure the system clock
     /* This example uses HAL library calls to control
     the GPIOC peripheral. You’ll be redoing this code
     with hardware register access. */
