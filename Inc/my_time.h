@@ -4,3 +4,4 @@
 
 
 void My_TIM2_SETUP(void);
+void My_TIM3_SETUP(void);
