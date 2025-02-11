@@ -3,7 +3,6 @@
 
 void EXTI_SETUP(void)
 {
-
     EXTI->IMR |= 0x1;
     EXTI->RTSR |= 0x1;
     RCC->APB2ENR |= 0x1;
@@ -43,7 +42,7 @@ int lab2_main(void)
     assert(EXTI->IMR == 0x7F840001);
     assert(SYSCFG->EXTICR[0] == 0x0);
     NVIC_EnableIRQ(EXTI0_1_IRQn); // Enable  interrupt on EXTI0_1
-    NVIC_SetPriority(EXTI0_1_IRQn, 3); // Set priority for EXTI0_1 to 1
+    NVIC_SetPriority(EXTI0_1_IRQn, 3); // Set priority for EXTI0_1
     NVIC_SetPriority(SysTick_IRQn, 2); // Setting priority for Systick
     while(1) 
     {

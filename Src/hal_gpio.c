@@ -33,6 +33,7 @@ void My_HAL_GPIO_InitAll(void)
     GPIOC->OTYPER &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Set PC6-9 to Push-Pull 
     GPIOC->OSPEEDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9));  // Set PC6-9 to Low-speed 
     GPIOC->PUPDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Ser PC6-9's to no Pull-up, Pull-down 
+    GPIOC->PUPDR |= ((0x1 << 13) | (0x1 << 15) | (0x1 << 17) | (0x1 << 19));
 } 
 
 void My_HAL_GPIO_Init_PA0(void)
