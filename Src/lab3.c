@@ -8,6 +8,7 @@ void TIM2_IRQHandler(void)
     My_HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9);
     TIM2->SR = 0;
 }
+
 int lab3_main(void) 
 {
     HAL_Init(); // Reset of all peripherals, init the Flash and Systick
@@ -23,6 +24,7 @@ int lab3_main(void)
 
 
     My_TIM2_SETUP();
+    //My_TIM3_SETUP();
     NVIC_EnableIRQ(TIM2_IRQn);
     NVIC_SetPriority(TIM2_IRQn, 1);   
 }
