@@ -13,17 +13,20 @@ void My_USART3_SETUP(void)
 
 void My_CHAR_TX(char character)
 {
-    while(!(USART3->ISR & (USART_ISR_TXE)))
+    while(!(USART3->ISR & (USART_ISR_TXE))) // Check USART TXE
     {
     }
+    // Set Transmit data register with character
     USART3->TDR = character;
 }
 
 void My_STRING_TX(char string[])
 {
+    // when the string is not the null terminator call My_CHAR_TX
     for(int i =0; string[i] != '\0'; i++)
     {
         My_CHAR_TX(string[i]);
     }
+    
     return;
 }

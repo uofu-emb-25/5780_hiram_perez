@@ -7,6 +7,7 @@ char volatile flag;
 char volatile buffer [2];
 uint16_t volatile counter = 0;
 
+// USART handler loads chars into buffer, sets flag when full
 void USART3_4_IRQHandler(void)
 {
     buffer[counter] = USART3->RDR;
@@ -30,23 +31,28 @@ int lab4_main(void)
     // Set up a configuration struct to pass to the initialization function
     My_HAL_GPIO_InitAll(); // Initialize pins PC6, PC7, PC8 & PC9
     //My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET); // Start PC9 high
-    My_HAL_GPIO_Init_PC4_PC5();
+    My_HAL_GPIO_Init_PC4_PC5(); // helper function to initalize PC4 and PC5 with correct alt function
+    // SET UP USART3 and USART NVIC 
     My_USART3_SETUP();
     NVIC_EnableIRQ(USART3_4_IRQn);
     NVIC_SetPriority(USART3_4_IRQn, 1);
     while(1)
     {
+        // Check RXNE 
         while(!(USART3->ISR & (0x1 << 5)))
         {
         }
-        if(flag)
+        if(flag) // check if buffer is full
         {               
+            // tansmitt new line and reset flag and counter
             My_STRING_TX("\n\r");
             flag = 0;
             counter = 0;
+            // Ask user for CMD
             My_STRING_TX("CMD?\n\r");
             switch(buffer[0])
             {
+                // Switch case for different LED combos
                 case 'b': // blue LED
                     switch(buffer[1])
                     {
