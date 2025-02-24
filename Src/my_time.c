@@ -27,8 +27,8 @@ void My_TIM3_SETUP(void)
     TIM3->CCMR2 |= (0x1 << 11); // Set TIM3 Channel 1 preload enable
     TIM3->CCER |= (0x1 << 0); // Set TIM3 Channel 1 output enable bit
     TIM3->CCER |= (0x1 << 4); // Set TIM3 Channel 2 output enable bit
-    TIM3->CCR1 = 500;
-    TIM3->CCR2 = 20;
+    TIM3->CCR1 = 520;
+    TIM3->CCR2 = 10;
     TIM3->CR1 = TIM_CR1_CEN;
 }
 

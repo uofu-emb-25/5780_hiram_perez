@@ -11,6 +11,12 @@ void My__HAL_RCC_GPIOA_CLK_ENABLE(void)
   RCC-> AHBENR |= RCC_AHBENR_GPIOAEN;
 }
 
+void My__HAL_RCC_USART3_CLK_ENABLE(void)
+{
+  RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
+}
+
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None

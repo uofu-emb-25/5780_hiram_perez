@@ -31,10 +31,20 @@ void My_HAL_GPIO_InitAll(void)
     GPIOC->MODER &= ~((0x1 << 12) | (0x1 << 13) | (0x1 << 14) | (0x1 << 15) | (0x1 << 16) | (0x1 << 17) | (0x1 << 18) | (0x1 << 19)); // Clear PC6-9 
     GPIOC->MODER |= ((0x1 << 12) | (0x1 << 14) | (0x1 << 16)| (0x1 << 18)); // Set PC6-9 to output mode
     GPIOC->OTYPER &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Set PC6-9 to Push-Pull 
-    GPIOC->OSPEEDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9));  // Set PC6-9 to Low-speed 
+    GPIOC->OSPEEDR &= ~((0x1 << 18) | (0x1 << 16) | (0x1 << 14) | (0x1 << 12));  // Set PC6-9 to Low-speed 
     GPIOC->PUPDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Ser PC6-9's to no Pull-up, Pull-down 
     GPIOC->PUPDR |= ((0x1 << 13) | (0x1 << 15) | (0x1 << 17) | (0x1 << 19));
-} 
+}
+
+void My_HAL_GPIO_Init_PC4_PC5(void)
+{
+    GPIOC->MODER &= ~((0x1 << 8) | (0x1 << 9) | (0x1 << 10) | (0x1 << 11)); // Clear PC4 & PC5
+    GPIOC->MODER |= ((0x1 << 11) | (0x1 << 9)); // Set PC4 & PC5 to Alternate function mode
+    GPIOC->AFR[0] &= ~((0x1 << 19) | (0x1 << 18) | (0x1 << 15) | (0x1 << 16)); // Set PC4 to AF1
+    GPIOC->AFR[0] |= (0x1 << 16); // Set PC4 to AF1
+    GPIOC->AFR[0] &= ~((0x1 << 23) | (0x1 << 23) | (0x1 << 21) | (0x1 << 20)); // Set PC5 to AF1
+    GPIOC->AFR[0] |= (0x1 << 20); // Set PC5 to AF1
+}
 
 void My_HAL_GPIO_Init_PA0(void)
 {
@@ -74,5 +84,5 @@ void My_HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState 
 
 void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
-    GPIOx->ODR ^= GPIO_Pin; // Clear PIN 8
+    GPIOx->ODR ^= GPIO_Pin;
 }
