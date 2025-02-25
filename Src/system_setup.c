@@ -11,6 +11,11 @@ void My__HAL_RCC_GPIOA_CLK_ENABLE(void)
   RCC-> AHBENR |= RCC_AHBENR_GPIOAEN;
 }
 
+void My__HAL_RCC_GPIOB_CLK_ENABLE(void)
+{
+  RCC-> AHBENR |= RCC_AHBENR_GPIOBEN;
+}
+
 // Enable USART3 RCC clock
 void My__HAL_RCC_USART3_CLK_ENABLE(void)
 {

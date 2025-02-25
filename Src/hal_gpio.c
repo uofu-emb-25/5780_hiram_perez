@@ -26,6 +26,26 @@ void My_HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
     GPIOA->PUPDR &= ~(0x1 << 1);
     GPIOA->PUPDR |= (0x1 << 1);
 } 
+void My_HAL_GPIO_PB11_PB13_PB_14_PC0_Init(void)
+{
+    GPIOB->MODER &= ~((0x1 << 22) | (0x1 << 23) | (0x1 << 26) | (0x1 << 27) | (0x1 << 28) | (0x1 << 29)); // Clear MODER bits for PB11, PB13, PB14
+    GPIOC->MODER &= ~((0x1 << 0) | (0x1 << 1)); // CLear MODER bits for PC0
+    GPIOB-> MODER |= ((0x1 << 23) | (0x1 << 27) | (0x1 << 28)); // PB11 -> Alternate, PB13-> Alternate, PB14->output
+    GPIOC->MODER |= (0x1 << 0); // PC0-> Output
+
+    GPIOB->OTYPER &= ~((0x1 << 11) | (0x1 << 13) | (0x1 << 14)); // Clear OTYPER bits for PB11, PB13, PB14
+    GPIOB->OTYPER |= ((0x1 << 11)  | (0x1 << 13)); // PB11->Open-drain, PB13->Open-drain, PB14-> Push-pull
+    GPIOC->OTYPER &= ~(0x1 << 0); // PC0->Push-pull
+
+    GPIOB->AFR[1] &= ~((0x1 << 15) | (0x1 << 14) | (0x1 << 13)); // Clear PB11 AFR
+    GPIOB->AFR[1] |= (0x1 << 12); // Set PB11 AFR to I2C_SDA
+
+    GPIOB->AFR[1] &= ~((0x1 << 23) | (0x1 << 21));
+    GPIOB->AFR[1] |= ((0x1 << 22) | (0x1 << 20)); // Set PB13 to I2C_SCL
+
+    My_HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); // Start PB14 high
+    My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET); // Start PC0 high
+}
 void My_HAL_GPIO_InitAll(void)
 {
     GPIOC->MODER &= ~((0x1 << 12) | (0x1 << 13) | (0x1 << 14) | (0x1 << 15) | (0x1 << 16) | (0x1 << 17) | (0x1 << 18) | (0x1 << 19)); // Clear PC6-9 
@@ -34,6 +54,7 @@ void My_HAL_GPIO_InitAll(void)
     GPIOC->OSPEEDR &= ~((0x1 << 18) | (0x1 << 16) | (0x1 << 14) | (0x1 << 12));  // Set PC6-9 to Low-speed 
     GPIOC->PUPDR &= ~((0x1 << 6) | (0x1 << 7) | (0x1 << 8) | (0x1 << 9)); // Ser PC6-9's to no Pull-up, Pull-down 
     GPIOC->PUPDR |= ((0x1 << 13) | (0x1 << 15) | (0x1 << 17) | (0x1 << 19));
+    
 }
 
 void My_HAL_GPIO_Init_PC4_PC5(void)
