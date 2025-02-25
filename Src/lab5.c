@@ -13,5 +13,6 @@ int lab3_main(void)
     My__HAL_RCC_GPIOB_CLK_ENABLE(); // Enable the GPIOA clock in the RCC
     // Set up a configuration struct to pass to the initialization function
     //My_HAL_GPIO_InitAll(); // Initialize pins PC6, PC7, PC8 & PC9
-    
+    My__HAL_RCC_I2C2_ENABLE(); // Enable I2C clock
+
 }

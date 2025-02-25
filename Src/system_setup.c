@@ -22,6 +22,10 @@ void My__HAL_RCC_USART3_CLK_ENABLE(void)
   RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
 }
 
+void My__HAL_RCC_I2C2_ENABLE(void)
+{
+  RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
