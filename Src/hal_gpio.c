@@ -43,6 +43,8 @@ void My_HAL_GPIO_PB11_PB13_PB_14_PC0_Init(void)
     GPIOB->AFR[1] &= ~((0x1 << 23) | (0x1 << 21));
     GPIOB->AFR[1] |= ((0x1 << 22) | (0x1 << 20)); // Set PB13 to I2C_SCL
 
+    GPIOC->BSRR = (0x1 << 0);
+
     My_HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); // Start PB14 high
     My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET); // Start PC0 high
 }
