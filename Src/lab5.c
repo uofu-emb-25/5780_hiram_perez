@@ -5,6 +5,8 @@
 void who_am_i_check_off(void);
 void I2C_TX(uint8_t slave_add, uint8_t reg_add, uint8_t data);
 uint8_t I2C_RX(uint8_t slave_add, uint8_t reg_add);
+void gryo_check_off(void);
+int16_t X_axis = 0, Y_axis = 0, x_temp = 0, y_temp = 0, old_x =0 , old_y = 0;
 
 int lab5_main(void) 
 {
@@ -20,18 +22,69 @@ int lab5_main(void)
     My_HAL_GPIO_PB11_PB13_PB_14_PC0_Init();
     My__HAL_RCC_I2C2_ENABLE(); // Enable I2C clock
     MY_I2C2_SETUP();
-    // who_am_i_check_off();
+    //who_am_i_check_off();
     // if(I2C_RX(0x69, 0x0F) == 0xD3)
     // {
     //     My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
     // }
     
-    I2C_TX(0x69, 0x20, 0xB);
-    if(I2C_RX(0x69, 0x20) == 0xB)
-    {
-        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
-    }
+    // I2C_TX(0x69, 0x20, 0xB);
+    // if(I2C_RX(0x69, 0x20) == 0xB)
+    // {
+    //     My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
+    // }
+    gryo_check_off();
 
+}
+
+void gryo_check_off(void)
+{
+    I2C_TX(0x69, 0x20, 0xB); // enable x, y and enter sleep mode
+    while(1)
+    {
+        HAL_Delay(100); // wait 100 ms
+
+        // RESET LEDS
+
+        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+        My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+
+        y_temp = (I2C_RX(0x69, 0x2B) << 8) | I2C_RX(0x69, 0x2A); 
+        x_temp = (I2C_RX(0x69, 0x29) << 8) | I2C_RX(0x69, 0x28);
+
+        old_x = X_axis;
+        old_y = Y_axis;
+        if(x_temp > 5000 || x_temp < -5000)
+        {
+            X_axis += x_temp; // add value to x axis
+        }
+        if(y_temp > 5000 || y_temp < -5000)
+        {
+            Y_axis += y_temp; // add value to y axis
+        }
+
+        if(X_axis < old_x) // Green LED for Negative X direction
+        {
+            My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+        }  
+
+        else if(X_axis > old_x) // Orange LED for Postive X direction
+        {
+            My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
+        } 
+
+        else if(Y_axis > old_y) // Red LED for Postivie Y direction
+        {
+            My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+        } 
+
+        else if(Y_axis < old_y) // Blue LED for Negative Y direction
+        {
+            My_HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
+        }  
+    }
 }
 
 void who_am_i_check_off(void)
@@ -93,7 +146,7 @@ void who_am_i_check_off(void)
 
 void I2C_TX(uint8_t slave_add, uint8_t reg_add, uint8_t data)
 {
-    I2C2->CR2 = (slave_add << 1); // Set SADD to 0x69
+    I2C2->CR2 = (slave_add << 1); // Set SADD to slave address
 
     // NBYTES
     I2C2->CR2 |= (0x2 << 16); // Set NBYTES to 0x1
