@@ -27,6 +27,11 @@ void My__HAL_RCC_I2C2_ENABLE(void)
   RCC->APB1ENR |= RCC_APB1ENR_I2C2EN;
 }
 
+void My__HAL_RCC_ADC1_ENABLE(void)
+{
+  RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
+}
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
