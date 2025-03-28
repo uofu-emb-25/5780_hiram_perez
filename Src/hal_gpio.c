@@ -59,18 +59,6 @@ void My_HAL_GPIO_InitAll(void)
     
 }
 
-void My_HAL_GPIO_PC0_ADC (void)
-{
-    GPIOC->MODER |= (0x3 << 1); // Set to analog mode
-    GPIOC->PUPDR &= ~(0x2 << 0); // No pull up or pull down resistor
-    ADC1->CFGR1 &= ~(0x1 << 3); 
-    ADC1->CFGR1 |= (0x1 << 4); // Set to 8 bit resolution
-    ADC1->CFGR1 |= (0x1 << 13); // Set to Continuous conversion modew
-    ADC1->CFGR1 &= ~((0x1 << 11) | (0x1 << 10)); // Disable hardware triggers
-    ADC1->CHSELR |= (0x1 << 10); // Enable input pin
-    
-}
-
 void My_HAL_GPIO_Init_PC4_PC5(void)
 {
     GPIOC->MODER &= ~((0x1 << 8) | (0x1 << 9) | (0x1 << 10) | (0x1 << 11)); // Clear PC4 & PC5
@@ -120,4 +108,25 @@ void My_HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState 
 void My_HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
     GPIOx->ODR ^= GPIO_Pin;
+}
+
+
+void My_HAL_GPIO_PC0_ADC (void)
+{
+    GPIOC->MODER |= (0x3 << 1); // Set to analog mode
+    GPIOC->PUPDR &= ~(0x2 << 0); // No pull up or pull down resistor
+    ADC1->CFGR1 &= ~(0x1 << 3); 
+    ADC1->CFGR1 |= (0x1 << 4); // Set to 8 bit resolution
+    ADC1->CFGR1 |= (0x1 << 13); // Set to Continuous conversion modew
+    ADC1->CFGR1 &= ~((0x1 << 11) | (0x1 << 10)); // Disable hardware triggers
+    ADC1->CHSELR |= (0x1 << 10); // Enable input pin
+    
+}
+
+void My_HAL_GPIO_PA4_DAC (void)
+{
+    GPIOA->MODER |= ((0x1 << 8) | (0x1 <<9)); // Set to analog mode
+    GPIOA->PUPDR &= ~((0x1 << 8) | (0x1 <<9)); // No pull up or pull down resistor;
+    DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1; // Enable software trigger for DAC channel 1
+    DAC1->CR |= DAC_CR_EN1; // Enable DAC channel 1 
 }

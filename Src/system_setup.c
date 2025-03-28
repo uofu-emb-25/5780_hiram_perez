@@ -32,6 +32,10 @@ void My__HAL_RCC_ADC1_ENABLE(void)
   RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 }
 
+void My__HAL_RXX_DAC1_ENABLE(void)
+{
+  RCC->APB1ENR |= RCC_APB1ENR_DACEN;
+}
 /**
   * @brief  This function is executed in case of error occurrence.
   * @param  None
