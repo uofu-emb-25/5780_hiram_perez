@@ -74,7 +74,9 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-    HAL_IncTick();
+    //HAL_IncTick();
+    Lab7_Systick_Callback();
+
     #if defined (LAB2)
     {
     if(counter == 200)
@@ -85,6 +87,12 @@ void SysTick_Handler(void)
     counter++;
     }
     #endif
+    /* USER CODE BEGIN SysTick_IRQn 0 */
+    #if defined(LAB7)
+    #endif
+    /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/

@@ -17,7 +17,7 @@ int lab6_main(void)
     // Set up a configuration struct to pass to the initialization function
     My_HAL_GPIO_InitAll(); // Initialize pins PC6, PC7, PC8 & PC9
     My__HAL_RCC_ADC1_ENABLE();
-    My__HAL_RXX_DAC1_ENABLE();
+    My__HAL_RCC_DAC1_ENABLE();
     My_HAL_GPIO_PC0_ADC();
     My_HAL_GPIO_PA4_DAC();
     My_ADC_CAL();
