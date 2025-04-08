@@ -1,6 +1,11 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
 #include "main.h"
+#include "hal_gpio.h"
+#include "system_setup.h"
+#include "My_HAL_GPIO.h"
+#include "my_I2C.h"
+
 
 void who_am_i_check_off(void);
 void I2C_TX(uint8_t slave_add, uint8_t reg_add, uint8_t data);

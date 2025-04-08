@@ -2,21 +2,24 @@
 #include <assert.h>
 #include "main.h"
 #include "my_USART.h"
+#include "hal_gpio.h"
+#include "system_setup.h"
+#include "My_HAL_GPIO.h"
 
 char volatile flag;
 char volatile buffer [2];
-uint16_t volatile counter = 0;
+uint16_t volatile counter1 = 0;
 
 // USART handler loads chars into buffer, sets flag when full
 void USART3_4_IRQHandler(void)
 {
-    buffer[counter] = USART3->RDR;
-    My_CHAR_TX(buffer[counter]);
-    if(counter == 1)
+    buffer[counter1] = USART3->RDR;
+    My_CHAR_TX(buffer[counter1]);
+    if(counter1 == 1)
     {
         flag = 1;
     }
-    counter++;
+    counter1++;
 }
 int lab4_main(void) 
 {
@@ -47,7 +50,7 @@ int lab4_main(void)
             // tansmitt new line and reset flag and counter
             My_STRING_TX("\n\r");
             flag = 0;
-            counter = 0;
+            counter1 = 0;
             // Ask user for CMD
             My_STRING_TX("CMD?\n\r");
             switch(buffer[0])

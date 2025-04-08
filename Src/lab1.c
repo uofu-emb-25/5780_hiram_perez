@@ -1,5 +1,9 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
+#include "hal_gpio.h"
+#include "system_setup.h"
+#include "My_HAL_GPIO.h"
+
 int lab1_main(void) 
 {
     HAL_Init(); // Reset of all peripherals, init the Flash and Systick

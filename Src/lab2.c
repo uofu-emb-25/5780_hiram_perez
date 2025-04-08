@@ -1,5 +1,9 @@
 #include <stm32f0xx_hal.h>
 #include <assert.h>
+#include "hal_gpio.h"
+#include "system_setup.h"
+#include "My_HAL_GPIO.h"
+
 
 void EXTI_SETUP(void)
 {

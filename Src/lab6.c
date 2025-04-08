@@ -2,6 +2,9 @@
 #include <assert.h>
 #include "my_ADC.h"
 #include "main.h"
+#include "hal_gpio.h"
+#include "system_setup.h"
+#include "My_HAL_GPIO.h"
 
 void ADC_check_off(void);
 void DAC_check_off(void);

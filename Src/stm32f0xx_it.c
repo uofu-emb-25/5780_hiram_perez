@@ -22,6 +22,7 @@
 #include <stm32f0xx_it.h>
 
 volatile uint32_t counter;
+void Lab7_Systick_Callback(void);
 
 /******************************************************************************/
 /*            Cortex-M0 Processor Exceptions Handlers                         */

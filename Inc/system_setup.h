@@ -1,0 +1,9 @@
+void My__HAL_RCC_GPIOC_CLK_ENABLE(void);
+void My__HAL_RCC_GPIOA_CLK_ENABLE(void);
+void My__HAL_RCC_GPIOB_CLK_ENABLE(void);
+void My__HAL_RCC_USART3_CLK_ENABLE(void);
+void My__HAL_RCC_I2C2_ENABLE(void);
+void My__HAL_RCC_ADC1_ENABLE(void);
+void My__HAL_RCC_DAC1_ENABLE(void);
+void Error_Handler(void);
+void SystemClock_Config(void);
